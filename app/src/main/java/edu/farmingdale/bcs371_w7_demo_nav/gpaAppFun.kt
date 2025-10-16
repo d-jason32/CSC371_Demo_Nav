@@ -1,17 +1,20 @@
 package edu.farmingdale.bcs371_w7_demo_nav
 
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 
-// ToDo 10: make this composable navigable and then add a button to navigate to a suitable screen
+// ToDo 10: make this composable navigable and then add a button to navigate to a suitable screen Done
 
 @Composable
 fun gpaappFun(navController: NavController) {
+    val  context = LocalContext.current
 
     var grade1 by remember { mutableStateOf("") }
     var grade2 by remember { mutableStateOf("") }
@@ -82,6 +85,17 @@ fun gpaappFun(navController: NavController) {
             Text(text = "GPA: $gpa")
         }
 
+        // Button to go back to the pizza party screen
+        Button(
+            onClick = {            val intent = Intent(context, MainActivity::class.java).apply {
+                putExtra("dest", "pizza_party")
+            }
+                context.startActivity(intent)
+
+            },
+        ) {
+            Text("Go to pizza party")
+        }
 
     }
 }

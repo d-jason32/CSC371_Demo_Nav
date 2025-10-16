@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.Button
 import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -30,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.xr.scenecore.Head
 import edu.farmingdale.bcs371_w7_demo_nav.ui.theme.BCS371_W7_Demo_NavTheme
 
 class MainActivity2 : ComponentActivity() {
@@ -73,7 +75,7 @@ fun BasicOperations(name: String, modifier: Modifier = Modifier) {
         Button( onClick = {
             val newInt = Intent(Intent.ACTION_VIEW)
             // ToDo 1: create implicit intent to open a web page or call a phone number
-            newInt.setData(Uri.parse("631000000"))
+            newInt.setData(Uri.parse("tel:631000000"))
             context.startActivity(newInt)
         },
             enabled = boolean1,
@@ -95,6 +97,22 @@ fun BasicOperations(name: String, modifier: Modifier = Modifier) {
             Icon( imageVector = Icons.Default.Info, contentDescription = "Phone")
             Text("Go To activity 2", Modifier.padding(10.dp))
         }
+        HorizontalDivider(thickness = DividerDefaults.Thickness)
+
+        // Button to go to the pizza party
+        Button( onClick = {
+            val intent = Intent(context, MainActivity::class.java).apply {
+                putExtra("dest", "pizza_party")
+            }
+            context.startActivity(intent)
+
+        },
+            enabled = boolean1,
+            modifier= Modifier.padding(start = 40.dp, end = 40.dp)) {
+            Icon( imageVector = Icons.Outlined.ShoppingCart, contentDescription = "pizza")
+            Text("Go To Pizza party", Modifier.padding(10.dp))
+        }
+
         HorizontalDivider(thickness = DividerDefaults.Thickness)
 
         // ToDo 3: Change the spacing between the icons and text to be 10dp DONE

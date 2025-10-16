@@ -42,10 +42,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BCS371_W7_Demo_NavTheme {
+                val x = intent.getStringExtra("dest") ?: "splash_screen"
                 Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize().background(
                     Color(0xFFE0E0E0)
                 )) {
-                    Navigation()
+                    Navigation(startDestination = x)
                 }
             }
         }

@@ -42,9 +42,11 @@ import kotlinx.coroutines.delay
 
 
 @Composable
-fun Navigation() {
+fun Navigation(startDestination: String = "splash_screen") {
     val navController= rememberNavController()
-    NavHost(navController = navController, startDestination = "splash_screen"  ){
+    NavHost(
+            navController = navController,
+            startDestination = startDestination  ){
         composable("splash_screen"
         ) {
             SpalshScreen(navController)
@@ -63,6 +65,13 @@ fun Navigation() {
         }
 
         // ToDo 7: Add more nav screens here for the pizza party and gpa calculator
+        composable("pizza_party") {
+            PizzaPartyScreen(navController)
+        }
+
+        composable("gpa_calculator") {
+            gpaappFun(navController)
+        }
 
 
     }
@@ -92,20 +101,25 @@ fun FirstScreen(navController: NavController) {
 fun SecondScreen(navController: NavController) {
     var sliderValue by remember { mutableStateOf(0.5f) }
 
+    var boolean2 by remember { mutableStateOf(false)}
+
+
     val context = LocalContext.current
     Column ( modifier = Modifier.padding(horizontal = 20.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally){
-        Slider(value = sliderValue, onValueChange = { sliderValue=it }, Modifier.fillMaxWidth())
+        Slider(value = sliderValue, onValueChange = { sliderValue=it }, Modifier.fillMaxWidth(), enabled = boolean2)
 
         Text (fontSize = 20.sp, text = "Second Screen")
 
-        Button(onClick = { context.startActivity(Intent(context, MainActivity2::class.java)) }) {
+        Button(onClick = {
+            context.startActivity(Intent(context, MainActivity2::class.java))
+            }) {
             Text(fontSize = 20.sp, text ="Go to other Activity")
         }
 
-        // ToDo 8: when the switch is off, disable the slider
-        Checkbox(checked = true, onCheckedChange = {  }, modifier = Modifier.padding(10.dp))
+        // ToDo 8: when the switch is off, disable the slider DONE
+        Checkbox(checked = boolean2, onCheckedChange = { boolean2 = it }, modifier = Modifier.padding(10.dp))
 
     }
 
